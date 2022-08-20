@@ -25,13 +25,17 @@ def extract_column_from_header(row):
         colunm_name = colunm_name.strip()
         return colunm_name    
     
-'''To keep the lab tasks consistent, you will be asked to scrape the 
+'''
+To keep the lab tasks consistent, you will be asked to scrape the 
 data from a snapshot of the List of Falcon 9 and Falcon Heavy 
-launches Wikipage updated on 9th June 2021'''
+launches Wikipage updated on 9th June 2021
+'''
 static_url = "https://en.wikipedia.org/w/index.php?title=List_of_Falcon_9_and_Falcon_Heavy_launches&oldid=1027686922"
 
-'''use requests.get() method with the provided static_url
-assign the response to a object'''
+'''
+use requests.get() method with the provided static_url
+assign the response to a object
+'''
 response = requests.get(static_url)
 
 # use BeautifulSoup() to fetch html data
@@ -41,8 +45,10 @@ soup = BeautifulSoup(response.text, 'html.parser')
 html_tables = soup.find_all('table')
 
 # print the second table and check its content; store it to first_launch_table
-''' Flight No., Date and time ( ), Launch site, Payload, 
-Payload mass, Orbit, Customer, Launch outcome '''
+''' Variables: 
+            Flight No., Date and time ( ), Launch site, Payload, 
+            Payload mass, Orbit, Customer, Launch outcome 
+'''
 
 column_names = []
 firstLaunch_table = html_tables[2]
@@ -53,8 +59,10 @@ for n in range(0, 15):
     if name != None and len(name) > 0:
         column_names.append(name)
         
-'''create a hashtable with empty arrays for values, use variable names
-we will store values into arrays by webscraping data via Wiki'''
+'''
+create a hashtable with empty arrays for values, use variable names
+we will store values into arrays by webscraping data via Wiki
+'''
 launch_dict = dict.fromkeys(column_names)
 # Let's initial the launch_dict with each value to be an empty list
 launch_dict['Flight No.'] = []
@@ -207,7 +215,6 @@ while n <= 258:
     else:
         n+=1
         i += 10
-# webscraping launch data (2021)
 # webscraping launch data (2021)   
 i = 8
 n = 0
@@ -224,12 +231,12 @@ while n <= 178:
         n+=1
         i += 10
 
-# create dataframe from webscraped hashtable
+# now that data is scraped, create a dataframe object from our new webscraped hashtable
 del launch_dict['Flight No.']
 df = pd.DataFrame(launch_dict)
 
 # df is created and ready for Data Wrangling
 df.head()
 
-# save dataframe object as a csv
+# save dataframe object as a csv if you do not wish to start wrangling
 df.to_csv('spacex_web_scrapedV3.csv', index=False)
