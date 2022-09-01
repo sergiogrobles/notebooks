@@ -1,4 +1,4 @@
-## Space X Project:
+## Space X Project / Coursework:
 <img width="1440" alt="spaceX_dashboard_screenshot" src="https://user-images.githubusercontent.com/87479473/187044467-be31c80d-8147-4e9b-a7d5-7644f9329cd8.png">
 
 In this project, I will show different processes a dataset can go through, from webscraping unstructured data - leading up to the creation of an interactive dashboard for stakeholders, personal use, ect. 
