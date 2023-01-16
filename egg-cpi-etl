@@ -33,7 +33,7 @@ dec_2022 = df.iloc[-1][0]
 inflation = round((
     (dec_2022 - jan_2022) / jan_2022) * 100, 2)
     
-# inflation = 120.32% increase
+# inflation = 60% increase
 
 # LOAD
 fig = px.bar(data_frame = df, x = df.Date, y = df['Egg CPI'])
