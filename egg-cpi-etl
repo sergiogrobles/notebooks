@@ -24,6 +24,17 @@ df = df.iloc[1:].reset_index(drop = True)
 # adding dates column
 df['Date'] = pd.date_range(start='01/01/2022', periods=len(df), freq='M')
 
+# old price
+jan_2022 = df.iloc[0][0]
+# new price
+dec_2022 = df.iloc[-1][0]
+
+# % change in price  = ((new price - old price) / old price) * 100
+inflation = round((
+    (dec_2022 - jan_2022) / jan_2022) * 100, 2)
+    
+# inflation = 120.32% increase
+
 # LOAD
 fig = px.bar(data_frame = df, x = df.Date, y = df['Egg CPI'])
 
