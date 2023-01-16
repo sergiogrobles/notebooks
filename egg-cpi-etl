@@ -1,0 +1,32 @@
+# import required modules
+import pandas as pd
+import os
+import warnings
+import plotly.express as px
+
+# filter warning -- tells pandas which module engine to utilize when importing .xlsx file
+warnings.filterwarnings('ignore', category=UserWarning, module='openpyxl')
+
+# get path to home
+path = os.environ.get('HOME')
+# path to folder and file containing data
+data_path = '/data/egg-cpi.xlsx'
+
+# EXTRACT
+# open file using pandas' read_excel attribute; parameters are variables defined above
+egg_df = pd.read_excel(path+data_path, engine = 'openpyxl')
+
+# TRANSFORM
+# cleaning data
+df = egg_df.iloc[-1:].transpose().rename(columns = {9: 'Egg CPI'})
+df = df.iloc[1:].reset_index(drop = True)
+
+# adding dates column
+df['Date'] = pd.date_range(start='01/01/2022', periods=len(df), freq='M')
+
+# LOAD
+fig = px.bar(data_frame = df, x = df.Date, y = df['Egg CPI'])
+
+fig.update_layout(
+    title_text = "Jan 2022 - Dec 2022:<br>U.S. Consumers Paying Over $2, on Average, for a Dozen Eggs", 
+    title_x=0.5)
